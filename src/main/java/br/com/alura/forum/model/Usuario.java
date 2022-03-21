@@ -22,8 +22,8 @@ public class Usuario implements UserDetails {
 	private String nome;
 	private String email;
 	private String senha;
-//	@ManyToMany(fetch = FetchType.EAGER)
-//	private List<Perfil> perfis = new ArrayList<>();
+	@ManyToMany(fetch = FetchType.EAGER)
+	private List<Perfil> perfis = new ArrayList<>();
 
 	@Override
 	public int hashCode() {
@@ -43,11 +43,8 @@ public class Usuario implements UserDetails {
 			return false;
 		Usuario other = (Usuario) obj;
 		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		return true;
+			return other.id == null;
+		} else return id.equals(other.id);
 	}
 
 	public Long getId() {
@@ -84,7 +81,7 @@ public class Usuario implements UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return null;
+		return this.perfis;
 	}
 
 	@Override
