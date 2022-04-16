@@ -19,7 +19,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @EnableWebSecurity
 @Configuration
-@Profile("prod")
+@Profile(value = {"prod", "test"})
 public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -54,7 +54,7 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 
     //Configuracoes de recursos estaticos(js, css, imagens)
     @Override
-    public void configure(WebSecurity web) throws Exception {
+    public void configure(WebSecurity web) {
         web.ignoring().antMatchers("/**.html", "/v2/api-docs", "/webjars/**", "/swagger-resources/**");
     }
 
